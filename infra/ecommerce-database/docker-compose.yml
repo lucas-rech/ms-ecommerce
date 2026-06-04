@@ -1,0 +1,55 @@
+services:
+  postgres-auth:
+    image: postgres:18.4-alpine
+    container_name: ecommerce-auth
+    environment:
+      POSTGRES_USER: ${AUTH_DB_USER}
+      POSTGRES_PASSWORD: ${AUTH_DB_PASSWORD}
+      POSTGRES_DB: ${AUTH_DB_HOST}
+    ports:
+      - "5437:5432"
+  postgres-customer:
+    image: postgres:18.4-alpine
+    container_name: ecommerce-customer
+    environment:
+      POSTGRES_USER: ${CUSTOMER_DB_USER}
+      POSTGRES_PASSWORD: ${CUSTOMER_DB_PASSWORD}
+      POSTGRES_DB: ${CUSTOMER_DB_HOST}
+    ports:
+      - "5432:5432"
+  postgres-product:
+    image: postgres:18.4-alpine
+    container_name: ecommerce-product
+    environment:
+      POSTGRES_USER: ${PRODUCT_DB_USER}
+      POSTGRES_PASSWORD: ${PRODUCT_DB_PASSWORD}
+      POSTGRES_DB: ${PRODUCT_DB_HOST}
+    ports:
+      - "5433:5432"
+  postgres-order:
+    image: postgres:18.4-alpine
+    container_name: ecommerce-order
+    environment:
+      POSTGRES_USER: ${ORDER_DB_USER}
+      POSTGRES_PASSWORD: ${ORDER_DB_PASSWORD}
+      POSTGRES_DB: ${ORDER_DB_HOST}
+    ports:
+      - "5434:5432"
+  postgres-inventory:
+    image: postgres:18.4-alpine
+    container_name: ecommerce-inventory
+    environment:
+      POSTGRES_USER: ${INVENTORY_DB_USER}
+      POSTGRES_PASSWORD: ${INVENTORY_DB_PASSWORD}
+      POSTGRES_DB: ${INVENTORY_DB_HOST}
+    ports:
+      - "5435:5432"
+  postgres-payment:
+    image: postgres:18.4-alpine
+    container_name: ecommerce-payment
+    environment:
+      POSTGRES_USER: ${PAYMENT_DB_USER}
+      POSTGRES_PASSWORD: ${PAYMENT_DB_PASSWORD}
+      POSTGRES_DB: ${PAYMENT_DB_HOST}
+    ports:
+      - "5436:5432"
