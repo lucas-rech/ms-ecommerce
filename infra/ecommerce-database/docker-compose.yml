@@ -24,6 +24,8 @@ services:
       POSTGRES_USER: ${PRODUCT_DB_USER}
       POSTGRES_PASSWORD: ${PRODUCT_DB_PASSWORD}
       POSTGRES_DB: ${PRODUCT_DB_HOST}
+    volumes:
+      - ./create_product_db.sql:/docker-entrypoint-initdb.d/create_product_db.sql
     ports:
       - "5433:5432"
   postgres-order:
