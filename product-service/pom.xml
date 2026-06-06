@@ -13,6 +13,9 @@
 	<version>0.0.1</version>
 	<name/>
 	<description/>
+	<properties>
+		<sonar.organization>lucas-rech</sonar.organization>
+	</properties>
 	<url/>
 	<licenses>
 		<license/>
