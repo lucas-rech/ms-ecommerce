@@ -28,7 +28,13 @@
 	</scm>
 	<properties>
 		<java.version>21</java.version>
+
 		<sonar.organization>lucas-rech</sonar.organization>
+		<sonar.coverage.exclusions>
+			**/ProductServiceApplication.java,
+			**/adapters/out/persistence/entities/**/*,
+			**/domain/**/*
+		</sonar.coverage.exclusions>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -138,7 +144,9 @@
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<configuration>
 					<excludes>
-						<exclude>ms/ecommerce/product/ProductServiceApplication.class</exclude>
+						<exclude>io/github/lucasrech/productservice/ProductServiceApplication.class</exclude>
+						<exclude>io/github/lucasrech/productservice/adapters/out/persistence/entities</exclude>
+						<exclude>io/github/lucasrech/producservice/domain/**/*</exclude>
 					</excludes>
 				</configuration>
 				<executions>
