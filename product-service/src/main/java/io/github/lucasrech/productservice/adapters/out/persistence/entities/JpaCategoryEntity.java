@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 
 @Entity
 @Table(name = "CATEGORIA")
@@ -23,4 +25,10 @@ public class JpaCategoryEntity {
 
     @Column(name = "DESCRICAO", length = 400)
     private String description;
+
+    @Column(name = "DT_INCLUSAO")
+    private LocalDateTime inclusionDate;
+
+    @Column(name = "DT_ALTERACAO")
+    private LocalDateTime updateDate;
 }

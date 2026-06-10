@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -48,4 +49,13 @@ public class JpaProductEntity {
             inverseJoinColumns = @JoinColumn(name = "ID_CATEGORIA")
     )
     private List<JpaCategoryEntity> categories;
+
+    @Column(name = "DT_INCLUSAO")
+    private LocalDateTime inclusionDate;
+
+    @Column(name = "DT_ALTERACAO")
+    private LocalDateTime updateDate;
+
+    @Column(name = "FL_ATIVO")
+    private boolean isActive;
 }

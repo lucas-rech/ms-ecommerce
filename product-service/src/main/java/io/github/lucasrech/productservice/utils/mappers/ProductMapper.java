@@ -22,7 +22,9 @@ public class ProductMapper {
                 ManufacturerMapper.toDomain(entity.getManufacturer()),
                 entity.getPrice(),
                 entity.getCategories() != null ? entity.getCategories().stream().map(CategoryMapper::toDomain).toList() : null,
-                entity.getImages() != null ? entity.getImages().stream().map(ProductImageMapper::toDomain).toList() : null
+                entity.getImages() != null ? entity.getImages().stream().map(ProductImageMapper::toDomain).toList() : null,
+                entity.getInclusionDate(),
+                entity.getUpdateDate()
         );
     }
 
@@ -39,6 +41,9 @@ public class ProductMapper {
         entity.setName(domain.getName());
         entity.setDescription(domain.getDescription());
         entity.setPrice(domain.getPrice());
+        entity.setInclusionDate(domain.getInclusionDate());
+        entity.setUpdateDate(domain.getUpdateDate());
+        entity.setActive(domain.isActive());
 
         if (domain.getManufacturer() != null && domain.getManufacturer().getId() != null) {
             JpaManufacturerEntity manufacturerRef = new JpaManufacturerEntity();

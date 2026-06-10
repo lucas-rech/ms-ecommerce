@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "PRODUTO_IMAGEM")
 @Getter
@@ -26,4 +28,10 @@ public class JpaProductImageEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_PRODUTO")
     private JpaProductEntity product;
+
+    @Column(name = "DT_INCLUSAO")
+    private LocalDateTime inclusionDate;
+
+    @Column(name = "DT_ALTERACAO")
+    private LocalDateTime updateDate;
 }

@@ -3,6 +3,8 @@ package io.github.lucasrech.productservice.adapters.out.persistence.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "FABRICANTE")
 @Getter
@@ -22,4 +24,10 @@ public class JpaManufacturerEntity {
 
     @Column(name = "CNPJ", length = 14)
     private String cnpj;
+
+    @Column(name = "DT_INCLUSAO")
+    private LocalDateTime inclusionDate;
+
+    @Column(name = "DT_ALTERACAO")
+    private LocalDateTime updateDate;
 }

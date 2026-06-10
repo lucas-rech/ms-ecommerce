@@ -13,7 +13,9 @@ public class ProductImageMapper {
         return new ProductImage(
                 entity.getId(),
                 entity.getS3Code(),
-                entity.isFeatured()
+                entity.isFeatured(),
+                entity.getInclusionDate(),
+                entity.getUpdateDate()
         );
     }
 
@@ -27,6 +29,8 @@ public class ProductImageMapper {
         entity.setId(domain.getId());
         entity.setS3Code(domain.getS3Code());
         entity.setFeatured(domain.isFeatured());
+        entity.setInclusionDate(domain.getInclusionDate());
+        entity.setUpdateDate(domain.getUpdateDate());
 
         return entity;
     }

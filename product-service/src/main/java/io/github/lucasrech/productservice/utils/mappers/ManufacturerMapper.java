@@ -14,7 +14,9 @@ public class ManufacturerMapper {
                 entity.getId(),
                 entity.getTradeName(),
                 entity.getCompanyName(),
-                entity.getCnpj()
+                entity.getCnpj(),
+                entity.getInclusionDate(),
+                entity.getUpdateDate()
         );
     }
 
@@ -29,6 +31,8 @@ public class ManufacturerMapper {
         entity.setCompanyName(domain.getCompanyName());
         entity.setTradeName(domain.getTradeName());
         entity.setCnpj(domain.getCnpj());
+        entity.setInclusionDate(domain.getInclusionDate());
+        entity.setUpdateDate(domain.getUpdateDate());
 
         return entity;
     }

@@ -13,7 +13,9 @@ public class CategoryMapper {
         return new Category(
                 entity.getId(),
                 toDomain(entity.getParentCategory()),
-                entity.getDescription()
+                entity.getDescription(),
+                entity.getInclusionDate(),
+                entity.getUpdateDate()
         );
     }
 
@@ -26,7 +28,9 @@ public class CategoryMapper {
 
         entity.setId(domain.getId());
         entity.setParentCategory(toEntity(domain.getParentCategory()));
-        entity.setDescription(entity.getDescription());
+        entity.setDescription(domain.getDescription());
+        entity.setInclusionDate(domain.getInclusionDate());
+        entity.setUpdateDate(domain.getUpdateDate());
 
         return entity;
     }
