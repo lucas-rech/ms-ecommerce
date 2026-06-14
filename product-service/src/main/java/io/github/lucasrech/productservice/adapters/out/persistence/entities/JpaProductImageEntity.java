@@ -17,6 +17,7 @@ public class JpaProductImageEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_PRODUTO_IMAGEM")
     private Long id;
 
     @Column(name = "S3_CODE", length = 1000)

@@ -3,28 +3,35 @@ package io.github.lucasrech.productservice.domain.manufacturer;
 import java.time.LocalDateTime;
 
 public class Manufacturer {
-    private Integer id;
+    private Short id;
     private String tradeName;
     private String companyName;
     private String cnpj;
     private LocalDateTime inclusionDate;
     private LocalDateTime updateDate;
+    private boolean isActive;
 
 
-    public Manufacturer(Integer id, String tradeName, String companyName, String cnpj, LocalDateTime inclusionDate, LocalDateTime updateDate) {
+    public Manufacturer(Short id, String tradeName, String companyName, String cnpj, LocalDateTime inclusionDate, LocalDateTime updateDate) {
         this.id = id;
         this.tradeName = tradeName;
         this.companyName = companyName;
         this.cnpj = cnpj;
         this.inclusionDate = inclusionDate;
         this.updateDate = updateDate;
+        this.isActive = true;
     }
 
-    public Integer getId() {
+    public Manufacturer() {
+        this.inclusionDate = LocalDateTime.now();
+        this.updateDate = LocalDateTime.now();
+    }
+
+    public Short getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Short id) {
         this.id = id;
     }
 
@@ -66,5 +73,13 @@ public class Manufacturer {
 
     public void setUpdateDate(LocalDateTime updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }

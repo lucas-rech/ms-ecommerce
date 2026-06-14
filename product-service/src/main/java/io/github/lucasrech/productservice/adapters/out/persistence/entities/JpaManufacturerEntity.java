@@ -14,7 +14,8 @@ public class JpaManufacturerEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "ID_FABRICANTE")
+    private Short id;
 
     @Column(name = "NOME_FANTASIA", length = 100)
     private String tradeName;

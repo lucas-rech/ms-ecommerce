@@ -18,6 +18,7 @@ public class JpaProductEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_PRODUTO")
     private Long id;
 
     @Column(name = "CD_SKU", length = 50)
