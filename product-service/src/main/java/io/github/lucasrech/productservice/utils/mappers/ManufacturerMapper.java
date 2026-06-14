@@ -2,6 +2,7 @@ package io.github.lucasrech.productservice.utils.mappers;
 
 import io.github.lucasrech.productservice.adapters.out.persistence.entities.JpaManufacturerEntity;
 import io.github.lucasrech.productservice.domain.manufacturer.Manufacturer;
+import io.github.lucasrech.productservice.domain.manufacturer.ManufacturerRequestDTO;
 
 public class ManufacturerMapper {
 
@@ -35,5 +36,20 @@ public class ManufacturerMapper {
         entity.setUpdateDate(domain.getUpdateDate());
 
         return entity;
+    }
+
+    public static Manufacturer dtoToDomain(ManufacturerRequestDTO requestDTO) {
+        if (requestDTO == null) {
+            return null;
+        }
+
+        Manufacturer domain = new Manufacturer();
+
+        domain.setTradeName(requestDTO.tradeName());
+        domain.setCompanyName(requestDTO.companyName());
+        domain.setCnpj(requestDTO.cnpj());
+        domain.setActive(true);
+
+        return domain;
     }
 }
