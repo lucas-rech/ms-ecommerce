@@ -43,4 +43,9 @@ public class ManufacturerRepositoryAdapter implements ManufacturerRepository {
         return jpaManufacturerRepository.findByCnpj(cnpj)
                 .map(ManufacturerMapper::toDomain);
     }
+
+    @Override
+    public boolean existsByCnpj(String cnpj) {
+        return jpaManufacturerRepository.existsByCnpj(cnpj);
+    }
 }

@@ -22,4 +22,10 @@ public class BusinessException extends RuntimeException {
         this.status = error.getStatus();
     }
 
+    public BusinessException(BusinessError error, String description) {
+        super(error.getMessage());
+        this.description = description;
+        this.status = error.getStatus();
+    }
+
 }

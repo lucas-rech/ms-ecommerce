@@ -10,4 +10,5 @@ public interface ManufacturerRepository {
     Optional<Manufacturer> findById(Integer id);
     Page<Manufacturer> findAll(Pageable pageable);
     Optional<Manufacturer> findByCnpj(String cnpj);
+    boolean existsByCnpj(String cnpj);
 }

@@ -15,7 +15,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -31,11 +30,10 @@ public class ManufacturerService implements ManufacturerUseCase {
            throw BusinessError.REQUEST_NULLABLE_OBJECT.asException();
        }
 
-       Optional<Manufacturer> exists = this.findByCnpj(manufacturerDTO.cnpj());
-       if (exists.isPresent()) {
+       if (manufacturerRepository.existsByCnpj(manufacturerDTO.cnpj())) {
            throw BusinessException.builder()
-                   .message("Falha ao inserir registro")
-                   .description(String.format("Já existe uma filial com esse CNPJ: %s", manufacturerDTO.cnpj()))
+                   .message("Fabricante já existe")
+                   .description("Já existe um fabricante com esse CNPJ")
                    .status(HttpStatus.CONFLICT)
                    .build();
        }
@@ -60,8 +58,16 @@ public class ManufacturerService implements ManufacturerUseCase {
     }
 
     @Override
-    public Manufacturer finById(Integer id) {
-        return null;
+    public Manufacturer findById(Integer id) {
+        if (id == null) {
+            throw BusinessError.REQUEST_NULLABLE_OBJECT.asException();
+        }
+
+        Manufacturer domain = manufacturerRepository.findById(id)
+                .orElseThrow(() -> BusinessError.MANUFACTURER_NOT_FOUND.asException(String.valueOf(id)));
+
+        log.info("Fabricante encontrado e retornado com sucesso {}", domain.getId());
+        return domain;
     }
 
     @Override
@@ -70,11 +76,15 @@ public class ManufacturerService implements ManufacturerUseCase {
     }
 
     @Override
-    public Optional<Manufacturer> findByCnpj(String cnpj) {
+    public Manufacturer findByCnpj(String cnpj) {
         if (cnpj.isEmpty()) {
             throw BusinessError.REQUEST_NULLABLE_OBJECT.asException();
         }
 
-        return manufacturerRepository.findByCnpj(cnpj);
+        Manufacturer domain = manufacturerRepository.findByCnpj(cnpj)
+                .orElseThrow(() -> BusinessError.MANUFACTURER_NOT_FOUND.asException(cnpj));
+
+        log.info("Fabricante encontrado e retornado com sucesso {}", domain.getId());
+        return domain;
     }
 }

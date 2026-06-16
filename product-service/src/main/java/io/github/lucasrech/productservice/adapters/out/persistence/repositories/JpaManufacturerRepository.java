@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface JpaManufacturerRepository extends JpaRepository<JpaManufacturerEntity, Integer> {
     Optional<JpaManufacturerEntity> findByCnpj(String cnpj);
+    boolean existsByCnpj(String cnpj);
 }
