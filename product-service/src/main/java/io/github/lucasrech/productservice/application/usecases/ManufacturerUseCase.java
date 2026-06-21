@@ -8,9 +8,9 @@ import org.springframework.data.domain.Pageable;
 
 public interface ManufacturerUseCase {
     void insert(ManufacturerRequestDTO manufacturer);
-    void update(Integer id, ManufacturerRequestDTO manufacturer);
-    void delete(Integer id);
-    Manufacturer findById(Integer id);
+    void update(Short id, ManufacturerRequestDTO manufacturer);
+    void delete(Short id);
+    Manufacturer findById(Short id);
     Page<Manufacturer> findAll(Pageable pageable);
     Manufacturer findByCnpj(String cnpj);
 }

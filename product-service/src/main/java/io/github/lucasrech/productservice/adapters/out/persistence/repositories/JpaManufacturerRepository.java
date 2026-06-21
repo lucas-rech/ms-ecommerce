@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface JpaManufacturerRepository extends JpaRepository<JpaManufacturerEntity, Integer> {
+public interface JpaManufacturerRepository extends JpaRepository<JpaManufacturerEntity, Short> {
     Optional<JpaManufacturerEntity> findByCnpj(String cnpj);
     boolean existsByCnpj(String cnpj);
 }

@@ -27,7 +27,7 @@ public class ManufacturerRepositoryAdapter implements ManufacturerRepository {
     }
 
     @Override
-    public Optional<Manufacturer> findById(Integer id) {
+    public Optional<Manufacturer> findById(Short id) {
         return jpaManufacturerRepository.findById(id)
                 .map(ManufacturerMapper::toDomain);
     }
