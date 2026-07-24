@@ -48,7 +48,7 @@ public class ManufacturerMapper {
         domain.setTradeName(requestDTO.tradeName());
         domain.setCompanyName(requestDTO.companyName());
         domain.setCnpj(requestDTO.cnpj());
-        domain.setActive(true);
+        domain.setActive(requestDTO.isActive() != null ? requestDTO.isActive() : true);
 
         return domain;
     }

@@ -48,4 +48,9 @@ public class ManufacturerRepositoryAdapter implements ManufacturerRepository {
     public boolean existsByCnpj(String cnpj) {
         return jpaManufacturerRepository.existsByCnpj(cnpj);
     }
+
+    @Override
+    public void delete(Manufacturer manufacturer) {
+        jpaManufacturerRepository.delete(ManufacturerMapper.toEntity(manufacturer));
+    }
 }

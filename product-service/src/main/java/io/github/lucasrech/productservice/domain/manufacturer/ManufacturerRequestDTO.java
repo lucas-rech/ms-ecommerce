@@ -10,6 +10,8 @@ public record ManufacturerRequestDTO(
         String companyName,
 
         @NotBlank(message = "cnpj não pode ser nulo")
-        String cnpj
+        String cnpj,
+        
+        Boolean isActive
 ) {
 }

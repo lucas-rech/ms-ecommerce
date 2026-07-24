@@ -13,32 +13,29 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.stereotype.Service;
-
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class ManufacturerService implements ManufacturerUseCase {
-    private final ManufacturerRepository manufacturerRepository;
-    private final LocalContainerEntityManagerFactoryBean entityManagerFactory2;
 
+    private final ManufacturerRepository manufacturerRepository;
 
     @Override
     @Transactional
     public void insert(ManufacturerRequestDTO manufacturerDTO) {
-       if (manufacturerDTO == null) {
-           throw BusinessError.REQUEST_NULLABLE_OBJECT.asException();
-       }
+        if (manufacturerDTO == null) {
+            throw BusinessError.REQUEST_NULLABLE_OBJECT.asException();
+        }
 
-       if (manufacturerRepository.existsByCnpj(manufacturerDTO.cnpj())) {
-           throw BusinessException.builder()
-                   .message("Fabricante já existe")
-                   .description("Já existe um fabricante com esse CNPJ")
-                   .status(HttpStatus.CONFLICT)
-                   .build();
-       }
+        if (manufacturerRepository.existsByCnpj(manufacturerDTO.cnpj())) {
+            throw BusinessException.builder()
+                    .message("Fabricante já existe")
+                    .description("Já existe um fabricante com esse CNPJ")
+                    .status(HttpStatus.CONFLICT)
+                    .build();
+        }
 
         Manufacturer manufacturer = ManufacturerMapper.dtoToDomain(manufacturerDTO);
 
@@ -52,32 +49,44 @@ public class ManufacturerService implements ManufacturerUseCase {
     @Override
     @Transactional
     public void update(Short id, ManufacturerRequestDTO manufacturerDTO) {
+        if (id == null || manufacturerDTO == null) {
+            throw BusinessError.REQUEST_NULLABLE_OBJECT.asException();
+        }
+
+        Manufacturer existingManufacturer = manufacturerRepository.findById(id)
+                .orElseThrow(() -> BusinessError.MANUFACTURER_NOT_FOUND.asException(String.valueOf(id)));
+
+        if (!existingManufacturer.getCnpj().equals(manufacturerDTO.cnpj()) &&
+                manufacturerRepository.existsByCnpj(manufacturerDTO.cnpj())) {
+
+            throw BusinessException.builder()
+                    .message("Conflito de CNPJ")
+                    .description("Já existe outro fabricante cadastrado com este CNPJ")
+                    .status(HttpStatus.CONFLICT)
+                    .build();
+        }
+
+        existingManufacturer.setCompanyName(manufacturerDTO.companyName().toUpperCase());
+        existingManufacturer.setTradeName(manufacturerDTO.tradeName().toUpperCase());
+        existingManufacturer.setCnpj(manufacturerDTO.cnpj());
+
+        manufacturerRepository.save(existingManufacturer);
+        log.info("Fabricante atualizado com sucesso: {}", existingManufacturer.getId());
+    }
+
+    @Override
+    @Transactional
+    public void delete(Short id) {
         if (id == null) {
             throw BusinessError.REQUEST_NULLABLE_OBJECT.asException();
         }
 
-        try {
-            manufacturerRepository.findById(id).ifPresent(existingManufacturer -> {
-                Manufacturer domainToUpdate = ManufacturerMapper.dtoToDomain(manufacturerDTO);
-                domainToUpdate.setId(id);
+        Manufacturer existingManufacturer = manufacturerRepository.findById(id)
+                .orElseThrow(() -> BusinessError.MANUFACTURER_NOT_FOUND.asException(String.valueOf(id)));
 
-                manufacturerRepository.save(domainToUpdate);
-                log.info("Fabricante encontrado e atualizado com sucesso: {}", domainToUpdate.getId());
-            });
-        } catch (RuntimeException ex) {
-            String description = ex.getCause() != null ? ex.getCause().toString() : "Nenhuma causa raiz especificada";
-
-            throw BusinessException.builder()
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .message(ex.getMessage())
-                    .description(description)
-                    .build();
-        }
-    }
-
-    @Override
-    public void delete(Short id) {
-
+        existingManufacturer.setActive(false);
+        manufacturerRepository.save(existingManufacturer);
+        log.info("Fabricante inativado (soft delete) com sucesso: {}", id);
     }
 
     @Override
@@ -95,7 +104,8 @@ public class ManufacturerService implements ManufacturerUseCase {
 
     @Override
     public Page<Manufacturer> findAll(Pageable pageable) {
-        return null;
+        log.info("Listagem paginada de fabricantes solicitada");
+        return manufacturerRepository.findAll(pageable);
     }
 
     @Override
@@ -107,7 +117,7 @@ public class ManufacturerService implements ManufacturerUseCase {
         Manufacturer domain = manufacturerRepository.findByCnpj(cnpj)
                 .orElseThrow(() -> BusinessError.MANUFACTURER_NOT_FOUND.asException(cnpj));
 
-        log.info("Fabricante encontrado e retornado com sucesso: {}", domain.getId());
+        log.info("Fabricante encontrado por CNPJ e retornado com sucesso: {}", domain.getId());
         return domain;
     }
 }
