@@ -4,6 +4,7 @@ import io.github.lucasrech.productservice.domain.category.Category;
 import io.github.lucasrech.productservice.domain.manufacturer.Manufacturer;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class Product {
@@ -16,8 +17,11 @@ public class Product {
     private BigDecimal price;
     private List<Category> categories;
     private List<ProductImage> images;
+    private LocalDateTime inclusionDate;
+    private LocalDateTime updateDate;
+    private boolean isActive;
 
-    public Product(Long id, String skuCode, String eanCode, String name, String description, Manufacturer manufacturer, BigDecimal price, List<Category> categories, List<ProductImage> images) {
+    public Product(Long id, String skuCode, String eanCode, String name, String description, Manufacturer manufacturer, BigDecimal price, List<Category> categories, List<ProductImage> images, LocalDateTime inclusionDate, LocalDateTime updateDate, boolean isActive) {
         this.id = id;
         this.skuCode = skuCode;
         this.eanCode = eanCode;
@@ -27,6 +31,9 @@ public class Product {
         this.price = price;
         this.categories = categories;
         this.images = images;
+        this.inclusionDate = inclusionDate;
+        this.updateDate = updateDate;
+        this.isActive = isActive;
     }
 
     public Long getId() {
@@ -99,5 +106,29 @@ public class Product {
 
     public void setImages(List<ProductImage> images) {
         this.images = images;
+    }
+
+    public LocalDateTime getInclusionDate() {
+        return inclusionDate;
+    }
+
+    public void setInclusionDate(LocalDateTime inclusionDate) {
+        this.inclusionDate = inclusionDate;
+    }
+
+    public LocalDateTime getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(LocalDateTime updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }

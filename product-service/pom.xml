@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>io.github.lucasrech</groupId>
 	<artifactId>product-service</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.4</version>
 	<name/>
 	<description/>
 	<url/>
@@ -32,8 +32,9 @@
 		<sonar.organization>lucas-rech</sonar.organization>
 		<sonar.coverage.exclusions>
 			**/ProductServiceApplication.java,
-			**/adapters/out/persistence/entities/**/*,
-			**/domain/**/*
+			**/adapters/out/persistence/entities/**,
+			**/domain/**,
+			**/utils/exception/**
 		</sonar.coverage.exclusions>
 	</properties>
 	<dependencies>
@@ -63,13 +64,24 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-webmvc-test</artifactId>
+			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>2.5.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation-test</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
@@ -145,8 +157,9 @@
 				<configuration>
 					<excludes>
 						<exclude>io/github/lucasrech/productservice/ProductServiceApplication.class</exclude>
-						<exclude>io/github/lucasrech/productservice/adapters/out/persistence/entities</exclude>
-						<exclude>io/github/lucasrech/producservice/domain/**/*</exclude>
+						<exclude>io/github/lucasrech/productservice/adapters/out/persistence/entities/**/*</exclude>
+						<exclude>io/github/lucasrech/productservice/domain/**/*</exclude>
+						<exclude>io/github/lucasrech/productservice/utils/exception/**/*</exclude>
 					</excludes>
 				</configuration>
 				<executions>
