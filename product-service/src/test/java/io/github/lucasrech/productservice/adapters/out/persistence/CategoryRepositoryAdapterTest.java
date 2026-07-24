@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,25 +37,28 @@ class CategoryRepositoryAdapterTest {
     @Test
     @DisplayName("Should save category")
     void save_Success() {
-        Category domain = new Category();
-        domain.setId(1);
-        
+        Category category = new Category();
+        category.setId(1);
+        category.setDescription("Test");
+
         JpaCategoryEntity entity = new JpaCategoryEntity();
         entity.setId(1);
+        entity.setDescription("Test");
 
         when(jpaCategoryRepository.save(any(JpaCategoryEntity.class))).thenReturn(entity);
 
-        Category result = categoryRepositoryAdapter.save(domain);
+        Category result = categoryRepositoryAdapter.save(category);
 
         assertEquals(1, result.getId());
         verify(jpaCategoryRepository).save(any(JpaCategoryEntity.class));
     }
 
     @Test
-    @DisplayName("Should find by id")
+    @DisplayName("Should find category by ID")
     void findById_Success() {
         JpaCategoryEntity entity = new JpaCategoryEntity();
         entity.setId(1);
+        entity.setDescription("Test");
 
         when(jpaCategoryRepository.findById(1)).thenReturn(Optional.of(entity));
 
@@ -83,7 +87,7 @@ class CategoryRepositoryAdapterTest {
     }
 
     @Test
-    @DisplayName("Should find all active categories")
+    @DisplayName("Should find active categories")
     void findAllByIsActive_Success() {
         Pageable pageable = PageRequest.of(0, 10);
         JpaCategoryEntity entity = new JpaCategoryEntity();
@@ -97,5 +101,16 @@ class CategoryRepositoryAdapterTest {
         assertEquals(1, result.getContent().size());
         assertEquals(1, result.getContent().get(0).getId());
         verify(jpaCategoryRepository).findAllByIsActive(eq(true), eq(pageable));
+    }
+
+    @Test
+    @DisplayName("Should return empty optional when category not found")
+    void findById_NotFound() {
+        when(jpaCategoryRepository.findById(1)).thenReturn(Optional.empty());
+
+        Optional<Category> result = categoryRepositoryAdapter.findById(1);
+
+        assertTrue(result.isEmpty());
+        verify(jpaCategoryRepository).findById(1);
     }
 }

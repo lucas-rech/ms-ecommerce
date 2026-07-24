@@ -68,6 +68,17 @@ class ProductRepositoryAdapterTest {
     }
 
     @Test
+    @DisplayName("Should return empty optional when product not found")
+    void findById_NotFound() {
+        when(jpaProductRepository.findById(1L)).thenReturn(Optional.empty());
+
+        Optional<Product> result = productRepositoryAdapter.findById(1L);
+
+        assertTrue(result.isEmpty());
+        verify(jpaProductRepository).findById(1L);
+    }
+
+    @Test
     @DisplayName("Should find all products")
     void findAll_Success() {
         Pageable pageable = PageRequest.of(0, 10);
@@ -117,5 +128,25 @@ class ProductRepositoryAdapterTest {
         boolean exists = productRepositoryAdapter.existsBySkuCode("123");
         assertTrue(exists);
         verify(jpaProductRepository).existsByCdSku("123");
+    }
+
+    @Test
+    @DisplayName("Should find products by manufacturer")
+    void findAllByManufacturer_Success() {
+        Pageable pageable = PageRequest.of(0, 10);
+        Manufacturer manufacturer = new Manufacturer();
+        manufacturer.setId((short) 1);
+
+        JpaProductEntity entity = new JpaProductEntity();
+        entity.setId(1L);
+        Page<JpaProductEntity> page = new PageImpl<>(List.of(entity));
+
+        when(jpaProductRepository.findAllByManufacturer(any(JpaManufacturerEntity.class), eq(pageable))).thenReturn(page);
+
+        Page<Product> result = productRepositoryAdapter.findAllByManufacturer(manufacturer, pageable);
+
+        assertEquals(1, result.getContent().size());
+        assertEquals(1L, result.getContent().get(0).getId());
+        verify(jpaProductRepository).findAllByManufacturer(any(JpaManufacturerEntity.class), eq(pageable));
     }
 }

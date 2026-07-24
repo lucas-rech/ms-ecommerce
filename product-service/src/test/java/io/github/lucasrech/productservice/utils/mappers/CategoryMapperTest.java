@@ -36,6 +36,12 @@ class CategoryMapperTest {
     }
 
     @Test
+    @DisplayName("Should return null when mapping null entity")
+    void toDomain_Null_Success() {
+        assertNull(CategoryMapper.toDomain(null));
+    }
+
+    @Test
     @DisplayName("Should map domain to entity")
     void toEntity_Success() {
         Category parentDomain = new Category();
@@ -59,6 +65,12 @@ class CategoryMapperTest {
     }
 
     @Test
+    @DisplayName("Should return null when mapping null domain")
+    void toEntity_Null_Success() {
+        assertNull(CategoryMapper.toEntity(null));
+    }
+
+    @Test
     @DisplayName("Should map DTO to domain")
     void dtoToDomain_Success() {
         CategoryRequestDTO dto = new CategoryRequestDTO(1, "Smartphones", true);
@@ -68,5 +80,11 @@ class CategoryMapperTest {
         assertNotNull(domain);
         assertEquals("Smartphones", domain.getDescription());
         assertTrue(domain.isActive());
+    }
+
+    @Test
+    @DisplayName("Should return null when mapping null DTO")
+    void dtoToDomain_Null_Success() {
+        assertNull(CategoryMapper.dtoToDomain(null));
     }
 }
