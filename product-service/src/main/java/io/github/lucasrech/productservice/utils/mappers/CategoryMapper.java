@@ -15,7 +15,8 @@ public class CategoryMapper {
                 toDomain(entity.getParentCategory()),
                 entity.getDescription(),
                 entity.getInclusionDate(),
-                entity.getUpdateDate()
+                entity.getUpdateDate(),
+                entity.isActive()
         );
     }
 
@@ -31,7 +32,20 @@ public class CategoryMapper {
         entity.setDescription(domain.getDescription());
         entity.setInclusionDate(domain.getInclusionDate());
         entity.setUpdateDate(domain.getUpdateDate());
+        entity.setActive(domain.isActive());
 
         return entity;
+    }
+
+    public static Category dtoToDomain(io.github.lucasrech.productservice.domain.category.CategoryRequestDTO dto) {
+        if (dto == null) {
+            return null;
+        }
+
+        Category category = new Category();
+        category.setDescription(dto.description());
+        category.setActive(dto.isActive() != null ? dto.isActive() : true);
+        
+        return category;
     }
 }

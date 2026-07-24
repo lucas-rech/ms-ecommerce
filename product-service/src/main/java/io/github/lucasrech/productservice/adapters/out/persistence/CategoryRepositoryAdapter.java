@@ -39,4 +39,14 @@ public class CategoryRepositoryAdapter implements CategoryRepository {
         return jpaCategoryRepository.findAll(pageable)
                 .map(CategoryMapper::toDomain);
     }
+    @Override
+    public java.util.Optional<Category> findById(Integer id) {
+        return jpaCategoryRepository.findById(id).map(CategoryMapper::toDomain);
+    }
+
+    @Override
+    public Page<Category> findAllByIsActive(boolean active, Pageable pageable) {
+        return jpaCategoryRepository.findAllByIsActive(active, pageable)
+                .map(CategoryMapper::toDomain);
+    }
 }

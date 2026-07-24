@@ -8,13 +8,18 @@ public class Category {
     private String description;
     private LocalDateTime inclusionDate;
     private LocalDateTime updateDate;
+    private boolean isActive;
 
-    public Category(Integer id, Category parentCategory, String description, LocalDateTime inclusionDate, LocalDateTime updateDate) {
+    public Category() {
+    }
+
+    public Category(Integer id, Category parentCategory, String description, LocalDateTime inclusionDate, LocalDateTime updateDate, boolean isActive) {
         this.id = id;
         this.parentCategory = parentCategory;
         this.description = description;
         this.inclusionDate = inclusionDate;
         this.updateDate = updateDate;
+        this.isActive = isActive;
     }
 
     public Integer getId() {
@@ -55,5 +60,13 @@ public class Category {
 
     public void setUpdateDate(LocalDateTime updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }

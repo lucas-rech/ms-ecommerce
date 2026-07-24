@@ -32,4 +32,7 @@ public class JpaCategoryEntity {
 
     @Column(name = "DT_ALTERACAO")
     private LocalDateTime updateDate;
+
+    @Column(name = "FL_ATIVO")
+    private boolean isActive;
 }

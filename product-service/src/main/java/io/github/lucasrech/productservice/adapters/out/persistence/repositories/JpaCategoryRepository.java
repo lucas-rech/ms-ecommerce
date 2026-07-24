@@ -10,4 +10,5 @@ import java.util.Optional;
 @Repository
 public interface JpaCategoryRepository extends JpaRepository<JpaCategoryEntity, Integer> {
     List<JpaCategoryEntity> findAllByParentCategory(JpaCategoryEntity parentCategory);
+    org.springframework.data.domain.Page<JpaCategoryEntity> findAllByIsActive(boolean isActive, org.springframework.data.domain.Pageable pageable);
 }
