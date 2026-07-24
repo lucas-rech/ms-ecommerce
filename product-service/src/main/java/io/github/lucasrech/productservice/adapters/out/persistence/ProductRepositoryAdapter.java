@@ -50,4 +50,32 @@ public class ProductRepositoryAdapter implements ProductRepository {
                 .findAllByManufacturer(manufacturerEntity, pageable)
                 .map(ProductMapper::toDomain);
     }
+
+    @Override
+    public Page<Product> findAllByIsActive(boolean active, Pageable pageable) {
+        return jpaProductRepository.findAllByIsActive(active, pageable)
+                .map(ProductMapper::toDomain);
+    }
+
+    @Override
+    public Optional<Product> findByEanCode(String ean) {
+        return jpaProductRepository.findByCdEan(ean)
+                .map(ProductMapper::toDomain);
+    }
+
+    @Override
+    public Optional<Product> findBySkuCode(String sku) {
+        return jpaProductRepository.findByCdSku(sku)
+                .map(ProductMapper::toDomain);
+    }
+
+    @Override
+    public boolean existsByEanCode(String ean) {
+        return jpaProductRepository.existsByCdEan(ean);
+    }
+
+    @Override
+    public boolean existsBySkuCode(String sku) {
+        return jpaProductRepository.existsByCdSku(sku);
+    }
 }

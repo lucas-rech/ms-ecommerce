@@ -24,7 +24,29 @@ public class ProductMapper {
                 entity.getCategories() != null ? entity.getCategories().stream().map(CategoryMapper::toDomain).toList() : null,
                 entity.getImages() != null ? entity.getImages().stream().map(ProductImageMapper::toDomain).toList() : null,
                 entity.getInclusionDate(),
-                entity.getUpdateDate()
+                entity.getUpdateDate(),
+                entity.isActive()
+        );
+    }
+
+    public static Product dtoToDomain(io.github.lucasrech.productservice.domain.product.ProductRequestDTO dto) {
+        if (dto == null) {
+            return null;
+        }
+
+        return new Product(
+                null,
+                dto.cdSku(),
+                dto.cdEan(),
+                dto.name(),
+                dto.description(),
+                null, // manufacturer set in service
+                dto.price(),
+                null, // categories set in service
+                null,
+                null,
+                null,
+                dto.isActive() != null ? dto.isActive() : true
         );
     }
 

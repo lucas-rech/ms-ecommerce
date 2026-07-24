@@ -21,7 +21,7 @@ public class Product {
     private LocalDateTime updateDate;
     private boolean isActive;
 
-    public Product(Long id, String skuCode, String eanCode, String name, String description, Manufacturer manufacturer, BigDecimal price, List<Category> categories, List<ProductImage> images, LocalDateTime inclusionDate, LocalDateTime updateDate) {
+    public Product(Long id, String skuCode, String eanCode, String name, String description, Manufacturer manufacturer, BigDecimal price, List<Category> categories, List<ProductImage> images, LocalDateTime inclusionDate, LocalDateTime updateDate, boolean isActive) {
         this.id = id;
         this.skuCode = skuCode;
         this.eanCode = eanCode;
@@ -33,6 +33,7 @@ public class Product {
         this.images = images;
         this.inclusionDate = inclusionDate;
         this.updateDate = updateDate;
+        this.isActive = isActive;
     }
 
     public Long getId() {

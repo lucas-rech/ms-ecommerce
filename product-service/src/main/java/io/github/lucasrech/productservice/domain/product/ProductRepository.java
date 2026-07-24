@@ -11,5 +11,10 @@ public interface ProductRepository {
     Optional<Product> findById(Long id);
     Page<Product> findAll(Pageable pageable);
     Page<Product> findAllByManufacturer(Manufacturer manufacturer, Pageable pageable);
+    Page<Product> findAllByIsActive(boolean active, Pageable pageable);
+    Optional<Product> findByEanCode(String ean);
+    Optional<Product> findBySkuCode(String sku);
+    boolean existsByEanCode(String ean);
+    boolean existsBySkuCode(String sku);
 
 }
