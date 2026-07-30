@@ -6,7 +6,7 @@ import (
 	"errors"
 
 	"github.com/lucas-rech/ms-ecommerce/inventory-service/internal/core/domain"
-	ports "github.com/lucas-rech/ms-ecommerce/inventory-service/internal/core/ports/out"
+	ports "github.com/lucas-rech/ms-ecommerce/inventory-service/internal/core/ports"
 )
 
 type inventoryRepositoryAdapter struct {
@@ -20,7 +20,7 @@ func NewInventoryRepositoryAdapter(db *sql.DB) ports.InventoryRepository {
 }
 
 
-func (i *inventoryRepositoryAdapter) Create(ctx context.Context, productID int64) error {
+func (i *inventoryRepositoryAdapter) Insert(ctx context.Context, productID int64) error {
 	query := `INSERT  INTO public.ESTOQUE(ID_PRODUTO) VALUES($1)`
 
     _, err := i.db.ExecContext(ctx, query, productID)
