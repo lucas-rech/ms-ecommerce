@@ -44,6 +44,8 @@ services:
       POSTGRES_USER: ${INVENTORY_DB_USER}
       POSTGRES_PASSWORD: ${INVENTORY_DB_PASSWORD}
       POSTGRES_DB: ${INVENTORY_DB_HOST}
+    volumes:
+     - ./create_inventory_db.sql:/docker-entrypoint-initdb.d/create_inventory_db.sql
     ports:
       - "5435:5432"
   postgres-payment:
